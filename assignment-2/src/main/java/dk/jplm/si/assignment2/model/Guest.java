@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class Guest {
     private String name;
     private String mail;
-    private String IP;
+    private String ip_address;
+    private String title;
+    private String country;
 }
 

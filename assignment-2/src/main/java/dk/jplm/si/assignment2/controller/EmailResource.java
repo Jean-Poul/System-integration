@@ -1,50 +1,43 @@
 package dk.jplm.si.assignment2.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dk.jplm.si.assignment2.model.GuestEmailList;
-import dk.jplm.si.assignment2.service.FileStorageServiceImpl;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-
+import dk.jplm.si.assignment2.service.EmailServiceImpl;
+import dk.jplm.si.assignment2.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 @RestController
-@RequestMapping("/email")
+@RequestMapping("/emails")
 public class EmailResource {
     // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
 
     private static final Logger logger = LoggerFactory.getLogger(EmailResource.class);
 
-
+    ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
-    private FileStorageServiceImpl fileStorageService;
+    private FileStorageService fileStorageService;
+    @Autowired
+    private EmailServiceImpl emailService;
+
     @PostMapping
-    public String sendEmails(@RequestBody GuestEmailList list, @RequestParam("file") MultipartFile file) {
+    //public String sendEmails( @RequestParam("file") MultipartFile file) {
+    public String sendEmails(@RequestParam("list") String list, @RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
+        GuestEmailList guestList;
+        try {
+            guestList = objectMapper.readValue(list, GuestEmailList.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
+        return emailService.sendEmails(guestList.getBody(), fileName, guestList.getGuests());
 
-
-        return "Your body is: " + list.getBody() + " first guest name: " + list.getGuests().get(0).getName();
     }
 }

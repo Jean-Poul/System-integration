@@ -23,6 +23,7 @@ public class CustomError
     private String message;
     private String details;
 
+
     public CustomError(Date timestamp, String message, String details) {
         super();
         this.timestamp = timestamp;

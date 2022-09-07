@@ -1,30 +1,39 @@
 package dk.jplm.si.assignment2.service;
 
-import org.springframework.http.*;
+import dk.jplm.si.assignment2.model.GenderizeResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-
+@Service
 public class GenderServiceImpl implements GenderService {
     @Override
-    public String getGenderByName(String countryId, String name) throws Exception {
-
-
+    public String getTitleByCountryAndName(String countryId, String name) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        // need iP here - REWORK - LOOK AT DORAS CLIENT (DNS LOOKUP CANBRUGES SOM LOOKUP
-        // WWW.WHATISMYIP.COM/DNS-LOOKUP
-        // MAKE AN ENTITY
+
         String resourceURL = "https://api.genderize.io?name=" + name + "&country_id=" + countryId;
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, String.class);
+        ResponseEntity<GenderizeResponse> response = restTemplate.getForEntity(resourceURL, GenderizeResponse.class);
+
         if (response.getStatusCode() == HttpStatus.OK) {
-            System.out.println(response);
+
+            return getTitleByGender(response.getBody().getGender());
+
         } else {
-            System.out.println("ERROR");
+            throw new Exception("Response status is: " + response.getStatusCode().getReasonPhrase());
         }
 
-        throw new Exception("not implemented yet");
+    }
+
+    private String getTitleByGender(String gender) throws Exception {
+        if (gender == null) {
+            return "";
+        } else if (gender.equals("male")) {
+            return "Mr.";
+        } else if (gender.equals("female")) {
+            return ("Ms.");
+        } else {
+            return "";
+        }
     }
 }
