@@ -1,14 +1,19 @@
 package dk.jplm.si.assignment2;
 
+import dk.jplm.si.assignment2.property.FileStorageProperties;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
 @SpringBootApplication
+@EnableConfigurationProperties({
+        FileStorageProperties.class
+})
 public class Assignment2Application implements CommandLineRunner {
 
     public static void main(String[] args) {
@@ -47,4 +52,6 @@ public class Assignment2Application implements CommandLineRunner {
             System.out.println("ERROR");
         }
     }
+
+
 }
