@@ -3,8 +3,10 @@ package dk.jplm.si.assignment2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
 
 @SpringBootApplication
 public class Assignment2Application implements CommandLineRunner {
@@ -32,6 +34,10 @@ public class Assignment2Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        String resourceURL = "https://api.genderize.io?name=peter&country_id=US";
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, String.class);
+        System.out.println(response);
     }
 }
