@@ -41,6 +41,10 @@ public class Assignment2Application implements CommandLineRunner {
         String resourceURL = "https://api.genderize.io?name=peter&country_id=US";
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, String.class);
-        System.out.println(response);
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println(response);
+        } else {
+            System.out.println("ERROR");
+        }
     }
 }
