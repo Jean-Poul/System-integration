@@ -40,6 +40,8 @@ public class EmailServiceImpl implements EmailService {
     }
 
     public String sendEmails(String body, String fileName, List<Guest> guests) {
+
+        // TODO this need implementation with email smtp
         try {
             guests = setCountries(guests);
             guests = setTitles(guests);
@@ -47,6 +49,12 @@ public class EmailServiceImpl implements EmailService {
             e.printStackTrace();
 
         }
+        for (Guest g :guests
+             ) {
+            // send email with file and body
+        }
+        
+        // The code below is just some test code
         String titles = "Titles: ";
         for (Guest g : guests
         ) {

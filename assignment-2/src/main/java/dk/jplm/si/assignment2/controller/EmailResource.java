@@ -39,9 +39,6 @@ public class EmailResource {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(countryService.getCountryByIP("187.51.154.59"));
-
         return emailService.sendEmails(guestList.getBody(), fileName, guestList.getGuests());
-
     }
 }
