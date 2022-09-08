@@ -7,7 +7,7 @@
 
 package dk.jplm.si.assignment2.ipsoap;
 
-public class GeoIPServiceLocator extends org.apache.axis.client.Service implements dk.si.ipsoap.GeoIPService {
+public class GeoIPServiceLocator extends org.apache.axis.client.Service implements GeoIPService {
 
 /**
  * <b>A web service which performs GetIpAddress Lookups.</b>

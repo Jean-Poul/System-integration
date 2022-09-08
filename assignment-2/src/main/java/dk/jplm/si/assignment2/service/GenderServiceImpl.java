@@ -16,13 +16,10 @@ public class GenderServiceImpl implements GenderService {
         ResponseEntity<GenderizeResponse> response = restTemplate.getForEntity(resourceURL, GenderizeResponse.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-
             return getTitleByGender(response.getBody().getGender());
-
         } else {
             throw new Exception("Response status is: " + response.getStatusCode().getReasonPhrase());
         }
-
     }
 
     private String getTitleByGender(String gender) throws Exception {

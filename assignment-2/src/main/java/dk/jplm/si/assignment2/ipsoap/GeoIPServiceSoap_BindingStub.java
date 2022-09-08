@@ -7,7 +7,7 @@
 
 package dk.jplm.si.assignment2.ipsoap;
 
-public class GeoIPServiceSoap_BindingStub extends org.apache.axis.client.Stub implements dk.si.ipsoap.GeoIPServiceSoap_PortType {
+public class GeoIPServiceSoap_BindingStub extends org.apache.axis.client.Stub implements GeoIPServiceSoap_PortType {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();
