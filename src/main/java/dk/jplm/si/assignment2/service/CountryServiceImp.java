@@ -3,7 +3,6 @@ package dk.jplm.si.assignment2.service;
 import dk.jplm.si.assignment2.ipsoap.GeoIPServiceLocator;
 import dk.jplm.si.assignment2.ipsoap.GeoIPServiceSoap_PortType;
 import org.springframework.stereotype.Service;
-
 import javax.xml.rpc.ServiceException;
 import java.rmi.RemoteException;
 
@@ -16,7 +15,7 @@ public class CountryServiceImp implements CountryService {
             GeoIPServiceLocator locator = new GeoIPServiceLocator();
             GeoIPServiceSoap_PortType service = locator.getGeoIPServiceSoap();
             String retString = service.getIpLocation(IP);
-            System.out.println(country);
+            country = retString.substring(16, 18);
         } catch (ServiceException | RemoteException ex) {
             ex.printStackTrace();
         }

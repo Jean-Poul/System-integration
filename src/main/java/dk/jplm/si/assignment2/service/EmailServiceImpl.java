@@ -14,6 +14,9 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     GenderServiceImpl genderService;
 
+    @Autowired
+    EmailSenderService senderService;
+
     @Override
     public String sendEmail(String email) throws Exception {
         throw new Exception("Not implemented yet");
@@ -42,25 +45,33 @@ public class EmailServiceImpl implements EmailService {
     public String sendEmails(String body, String fileName, List<Guest> guests) {
 
         // TODO this need implementation with email smtp
+
         try {
             guests = setCountries(guests);
             guests = setTitles(guests);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        for (Guest g : guests
+        ) {
+         //   senderService.sendEmail(g.getMail(), "Invitation",preapareBody(g,body),fileName);
+        }
 
-        }
-        for (Guest g :guests
-             ) {
-            // send email with file and body
-        }
-        
+
+
+    //    senderService.sendSimpleEmail("cph-mw216@cphbusiness.dk", "Simple Test", "blah blah blah blah");
         // The code below is just some test code
         String titles = "Titles: ";
+
         for (Guest g : guests
         ) {
             titles += g.getTitle() + ", ";
         }
         return titles;
+    }
+
+    private String preapareBody(Guest guest, String body) {
+        return "Dear " + guest.getTitle() + " " + guest.getName() + "\n" + body;
     }
 
 

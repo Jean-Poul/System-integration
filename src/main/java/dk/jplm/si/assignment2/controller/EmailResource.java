@@ -33,6 +33,7 @@ public class EmailResource {
     //public String sendEmails( @RequestParam("file") MultipartFile file) {
     public String sendEmails(@RequestParam("list") String list, @RequestParam("file") MultipartFile file) throws Exception {
         String fileName = fileStorageService.storeFile(file);
+        System.out.println("File Name: " + fileName);
         GuestEmailList guestList;
         try {
             guestList = objectMapper.readValue(list, GuestEmailList.class);
