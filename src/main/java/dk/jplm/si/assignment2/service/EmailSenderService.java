@@ -1,5 +1,6 @@
 package dk.jplm.si.assignment2.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,6 +17,7 @@ import java.io.File;
 public class EmailSenderService {
 
 
+    @Autowired
     private final JavaMailSender mailSender;
 
     public EmailSenderService(JavaMailSender mailSender) {
@@ -27,7 +29,7 @@ public class EmailSenderService {
                             String body,
                             String fileToAttach) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("admin@selself.com");
+        message.setFrom("magdalena@cphbusiness.dk");
         message.setText(body);
         message.setTo(toEmail);
         message.setSubject(subject);
@@ -36,7 +38,7 @@ public class EmailSenderService {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-                mimeMessage.setFrom(new InternetAddress("admin@selself.com"));
+                mimeMessage.setFrom(new InternetAddress("magdalena@cphbusiness.dk"));
                 mimeMessage.setSubject(subject);
                 mimeMessage.setText(body);
 
@@ -47,25 +49,29 @@ public class EmailSenderService {
         };
         try {
             mailSender.send(message);
-            return "Mail sent successfully";
+            return toEmail;
         } catch (Exception e) {
-            e.printStackTrace();
             throw e;
         }
-
     }
 
     public void sendSimpleEmail(String toEmail,
                                 String subject,
                                 String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("admin@selself.com");
+        message.setFrom("magdalena@cphbusiness.dk");
         message.setText(body);
         message.setTo(toEmail);
         message.setSubject(subject);
 
-        mailSender.send(message);
-        System.out.println("mail sent successfully");
+        try {
+            mailSender.send(message);
+            System.out.println("mail sent successfully");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }

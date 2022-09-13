@@ -1,3 +1,4 @@
+{"guests":
 [{"mail":"abc@cphbusiness.dk","name":"Lonnard","ip_address":"242.244.231.39"},
 {"mail":"rut87@cphbusiness.dk","name":"Caterina","ip_address":"92.16.34.160"},
 {"mail":"cph-6@cphbusiness.dk","name":"Leonerd","ip_address":"55.132.20.5"},
@@ -28,4 +29,5 @@
 {"mail":"3vf@live.dk","name":"Mariska","ip_address":"166.230.128.194"},
 {"mail":"dsfsdf3@live.dk","name":"Loy","ip_address":"122.194.8.247"},
 {"mail":"3dsdfdsd@live.dk","name":"Eugenia","ip_address":"83.187.115.129"}
-]
+], "body": "\tPellentesque habitant morbi tristique senectus et netus et malesuada. Posuere ac ut consequat semper. Condimentum mattis pellentesque id nibh tortor id aliquet lectus. Suspendisse in est ante in nibh. Massa eget egestas purus viverra accumsan in nisl nisi. Pellentesque habitant morbi tristique senectus. \n\tFacilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui. Venenatis lectus magna fringilla urna porttitor rhoncus. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Nunc sed velit dignissim sodales ut eu sem integer. At lectus urna duis convallis. Tortor dignissim convallis aenean et tortor. Diam quam nulla porttitor massa id. Ac turpis egestas integer eget. Tempor nec feugiat nisl pretium fusce id velit. \n\tSollicitudin nibh sit amet commodo nulla facilisi nullam vehicula. Turpis egestas sed tempus urna et pharetra pharetra massa massa. Dui id ornare arcu odio ut. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla."
+}

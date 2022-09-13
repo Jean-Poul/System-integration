@@ -3,6 +3,7 @@ package dk.jplm.si.assignment2.service;
 import dk.jplm.si.assignment2.model.Guest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,9 +18,27 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     EmailSenderService senderService;
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     @Override
-    public String sendEmail(String email) throws Exception {
-        throw new Exception("Not implemented yet");
+    public String sendEmails(String body, MultipartFile file, List<Guest> guests) throws Exception {
+
+        String fileName = fileStorageService.storeFile(file);
+        String response = "Invited guests: ";
+
+        try {
+            guests = setCountries(guests);
+            guests = setTitles(guests);
+
+        } catch (Exception e) {
+            throw e;
+        }
+        for (Guest g : guests
+        ) {
+            response += senderService.sendEmail(g.getMail(), "Invitation", preapareBody(g, body), "src/main/resources/static/" + fileName) + "\n";
+        }
+        return response;
     }
 
     private List<Guest> setCountries(List<Guest> guests) {
@@ -42,36 +61,8 @@ public class EmailServiceImpl implements EmailService {
         return guests;
     }
 
-    public String sendEmails(String body, String fileName, List<Guest> guests) {
-
-        // TODO this need implementation with email smtp
-
-        try {
-            guests = setCountries(guests);
-            guests = setTitles(guests);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (Guest g : guests
-        ) {
-         //   senderService.sendEmail(g.getMail(), "Invitation",preapareBody(g,body),fileName);
-        }
-
-
-
-    //    senderService.sendSimpleEmail("cph-mw216@cphbusiness.dk", "Simple Test", "blah blah blah blah");
-        // The code below is just some test code
-        String titles = "Titles: ";
-
-        for (Guest g : guests
-        ) {
-            titles += g.getTitle() + ", ";
-        }
-        return titles;
-    }
-
     private String preapareBody(Guest guest, String body) {
-        return "Dear " + guest.getTitle() + " " + guest.getName() + "\n" + body;
+        return "Dear " + guest.getTitle() + " " + guest.getName() + ",\n\n" + body;
     }
 
 

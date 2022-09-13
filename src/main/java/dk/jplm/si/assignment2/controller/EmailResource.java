@@ -16,30 +16,21 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/emails")
 public class EmailResource {
-    // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
-
     private static final Logger logger = LoggerFactory.getLogger(EmailResource.class);
 
     ObjectMapper objectMapper = new ObjectMapper();
-    @Autowired
-    private FileStorageService fileStorageService;
+
     @Autowired
     private EmailServiceImpl emailService;
 
-    @Autowired
-    private CountryServiceImp countryService;
-
     @PostMapping
-    //public String sendEmails( @RequestParam("file") MultipartFile file) {
     public String sendEmails(@RequestParam("list") String list, @RequestParam("file") MultipartFile file) throws Exception {
-        String fileName = fileStorageService.storeFile(file);
-        System.out.println("File Name: " + fileName);
         GuestEmailList guestList;
         try {
             guestList = objectMapper.readValue(list, GuestEmailList.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return emailService.sendEmails(guestList.getBody(), fileName, guestList.getGuests());
+        return emailService.sendEmails(guestList.getBody(), file, guestList.getGuests());
     }
 }
