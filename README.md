@@ -1,17 +1,38 @@
-## System Integration 2022 Assignment 2: Mini Project 1: WS and SOA  
+# System Integration 2022 Assignment 2: Mini Project 1: WS and SOA  
+
+## Group Members  
   
-#### Write how it works and our thougths
+- Frederik Johnsen, cph-fj111@cphbusiness.dk    
+- Jean-Poul Leth-Møller, cph-jl360@cphbusiness.dk     
+- Mathias Parking, cph-mp525@cphbusiness.dk  
+- Magdalena Wawrzak cph-mw216@cphbusiness.dk
+  
+
+### Brief introduction: 
+  
+This assignment is about creating a service which acts as a client to be able to communicate with other web services in the form of SOAP and REST services.
 
 
-The purpose with this assignement is to send e-mails to the group of Company Stakeholders invited to the event.
-Service uses a soap api on http://wsgeoip.lavasoft.com/ipservice.asmx?wsdl in order to determinate country code based on IP address of the reciepients.
-Then it calls a rest api on https://api.genderize.io providing firstname and country code "https://api.genderize.io?name=myfirstname&country_id=DK" in order to determinate gender of the recipients.
+#### Application overview:  
+  
+The main purpose of this application is to be able to automize e-mails creation and sending these e-mails to the group of company stakeholders invited to a sepecific event.
+To be able to generate this specific e-mail our service uses a SOAP API (http://wsgeoip.lavasoft.com/ipservice.asmx?wsdl). This web service is called in order to determinate country code based on IP address of the recipients.  
+Furthermore in order to determinate gender of recipients a REST API (https://api.genderize.io) is used where our service will provide firstname and country code.  
 
-Emails are sent with free SMTP service : https://www.wpoven.com/tools/free-smtp-server-for-testing . To view sent emails use: use email magdalena@cphbusiness.dk
+Example:  
+```shell
+"https://api.genderize.io?name=Dennis&country_id=DK"   
+```
+  
+When this is accomplished e-mails will be sent with the use of a free SMTP service (https://www.wpoven.com/tools/free-smtp-server-for-testing). To view the sent emails from the SMTP service use the following e-mail: magdalena@cphbusiness.dk  
 
-In order to connect to SMTP service it might be necessery to disable your FireWall!
+FYI:  
+In order to connect to the SMTP service it might be necessery to disable your firewall.
 
-Endpoint address is POST http://localhost:8099/emails and you can test it with Postman by providing Body type form-data with two fields: 
-"file" which must be of type file - choose file from your local machine
-"list" which must be of type text and it can be found here https://github.com/Jean-Poul/System-integration-assignment-2/blob/main/docs/listValue.txt
+#### How to test the application:  
 
+Use software like Postman.
+  
+Make a POST request to our endpoint http://localhost:8099/emails by providing body type -> form-data with two key fields:   
+"file" which must be of type file - choose file from your local machine.  
+"list" which must be of type text and it can be found here https://github.com/Jean-Poul/System-integration-assignment-2/blob/main/docs/listValue.txt  
